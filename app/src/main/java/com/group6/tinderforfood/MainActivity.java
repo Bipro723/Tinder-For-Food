@@ -1,47 +1,60 @@
 package com.group6.tinderforfood;
 
+
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
-import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 public class MainActivity extends AppCompatActivity {
+
+    private DrawerLayout dl;
+    private ActionBarDrawerToggle abdt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setupNavbar();
-    }
+        dl = (DrawerLayout)findViewById(R.id.dl);
+        abdt = new ActionBarDrawerToggle(this,dl,R.string.Open,R.string.Close);
+        abdt.setDrawerIndicatorEnabled(true);
 
-    private void setupNavbar(){
-        BottomNavigationViewEx tvEx = (BottomNavigationViewEx) findViewById(R.id.navbar_layout);
-        tvEx.enableAnimation(false);
-        tvEx.enableItemShiftingMode(false);
-        tvEx.enableShiftingMode(false);
-        tvEx.setTextVisibility(false);
-        tvEx.setIconSize(35,35);
+        dl.addDrawerListener(abdt);
+        abdt.syncState();
 
-        tvEx.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener(){
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
+        final NavigationView nav_view = (NavigationView)findViewById(R.id.nav_view);
+
+        nav_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener()
+        {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item){
-                switch (item.getItemId()) {
-                    case R.id.profile_icon:
-                    Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                int id = item.getItemId();
+
+                if(id == R.id.profile_icon){
+                    Toast.makeText(MainActivity.this, "MyProfile",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.this,ProfileActivity.class);
                     startActivity(intent);
-                    break;
                 }
-                return false;
+                else if(id == R.id.settings){
+                    Toast.makeText(MainActivity.this, "Settings",Toast.LENGTH_SHORT).show();
+                }
+
+                return true;
             }
         });
-        Menu menu = tvEx.getMenu();
-        MenuItem menuItem = menu.getItem(0);
-        menuItem.setChecked(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        return abdt.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 }
