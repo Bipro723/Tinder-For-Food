@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else if(id == R.id.settings){
                     Toast.makeText(MainActivity.this, "Settings",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                    startActivity(intent);
                 }
 
                 return true;
