@@ -1,6 +1,9 @@
 package com.group6.tinderforfood;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -22,6 +25,9 @@ public class SettingsActivity extends AppCompatActivity {
     private TextView max_distance;
     private RadioGroup dietgroup; //this represents the entire radiogroup
     private RadioButton dietbutton; //this is going to store the value of the currently checked radiobutton
+    public static String MY_PREFS = "MY_PREFS";
+    private SharedPreferences mySharedPreferences;
+    int prefMode = Activity.MODE_PRIVATE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +37,15 @@ public class SettingsActivity extends AppCompatActivity {
         assert getSupportActionBar() != null;   //null check
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);   //show back button
 
+        mySharedPreferences = getSharedPreferences(MY_PREFS, prefMode);
+
         ratingbar = (SeekBar) findViewById(R.id.seekBar1);
+
         pricebar = (SeekBar) findViewById(R.id.seekBar2);
+
         rangebar = (RangeBar) findViewById(R.id.rangebar1);
+        rangebar.setTickCount(20);
+
         rating = (TextView) findViewById(R.id.textView5);
         price = (TextView) findViewById(R.id.textView7);
         min_distance = (TextView) findViewById(R.id.editText1);
@@ -51,6 +63,12 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
                 rating.setText(String.valueOf(progress+1)); //this changes the value in the textview so that it displays the seekbar value as it updates
+                
+
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(SettingsActivity.this); //this gets the sharedpreferences across the app
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("Rating",toString().valueOf(progress+1)); //this is what you push to the sharedpreferences
+                editor.apply(); //this completes the action
             }
         });
 
@@ -72,6 +90,25 @@ public class SettingsActivity extends AppCompatActivity {
                 } else if(valueOf(progress)==2){
                     price.setText("$$$");
                 }
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(SettingsActivity.this);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("Price",toString().valueOf(progress));
+                editor.apply();
+            }
+        });
+
+        rangebar.setOnRangeBarChangeListener(new RangeBar.OnRangeBarChangeListener() {
+            @Override
+            public void onIndexChangeListener(RangeBar rangeBar, int leftThumbIndex, int rightThumbIndex) {
+
+                min_distance.setText("" + leftThumbIndex);
+                max_distance.setText("" + rightThumbIndex);
+
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(SettingsActivity.this);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("Min_Distance",min_distance.getText()+"");
+                editor.putString("Max_Distance",max_distance.getText()+"");
+                editor.apply();
             }
         });
 
@@ -93,11 +130,17 @@ public class SettingsActivity extends AppCompatActivity {
                 if (isChecked)
                 {
                 }
+
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(SettingsActivity.this);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("Diet",(String)dietbutton.getText());
+                editor.apply();
             }
         });
     }
     @Override
     public boolean onSupportNavigateUp(){ //this changes the back button function
+
         finish(); //this finishes current activity, making the app go back to the previous activity
         return true;
     }
