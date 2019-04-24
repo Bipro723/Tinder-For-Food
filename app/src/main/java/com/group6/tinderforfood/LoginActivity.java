@@ -15,6 +15,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
         login = (Button)findViewById(R.id.button);
@@ -30,7 +31,8 @@ public class LoginActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent intent = new Intent(v.getContext(), MainActivity.class);
+               // Intent intent = new Intent(v.getContext(), MainActivity.class);
+                Intent intent = new Intent(v.getContext(), RestaurantSwipeActivity.class);
                 startActivity(intent);
             }
         });
