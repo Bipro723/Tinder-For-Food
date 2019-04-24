@@ -104,22 +104,23 @@
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:id="@+id/radioGroup1">
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Meat-Eater"
-            android:checked="true"/>
+            android:checked="false"/>
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Vegetarian"
-                android:checked="true"/>
+                android:checked="false"/>
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Vegan"
-                android:checked="true"/>
+                android:checked="false"/>
         </RadioGroup>
 
         <TextView
