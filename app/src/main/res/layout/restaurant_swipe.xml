@@ -37,6 +37,8 @@
 
 
     <ProgressBar
+        android:scaleX=".3"
+        android:scaleY=".3"
         android:id="@+id/loading"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
