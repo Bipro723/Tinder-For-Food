@@ -9,10 +9,12 @@
     android:background="@color/colorPrimary">
 
     <ImageView
+        android:scaleY="2"
+        android:scaleX="2"
         android:layout_width="150px"
         android:layout_height="150px"
         android:layout_marginBottom="15dp"
         android:layout_marginTop="15dp"
-        android:background="@drawable/logo"/>
+        android:background="@drawable/tinder4food_transparent_icon_version2"/>
 
 </LinearLayout>
