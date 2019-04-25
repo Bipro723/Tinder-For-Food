@@ -2,6 +2,7 @@ package com.group6.tinderforfood;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
@@ -11,9 +12,14 @@ import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -58,6 +64,11 @@ public class RestaurantSwipeActivity extends AppCompatActivity {
     double mLongitude, mLatitude;
     Coordinates mCoordinate;
 
+    //NAVBAR VARS
+    private DrawerLayout dl;
+    private ActionBarDrawerToggle abdt;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +82,45 @@ public class RestaurantSwipeActivity extends AppCompatActivity {
         mRestaurants = new ArrayList<>();
         i = 0;
         iLast = 0;
+
+        //NAVBAR CODE
+
+        dl = (DrawerLayout)findViewById(R.id.dl);
+        abdt = new ActionBarDrawerToggle(this,dl,R.string.Open,R.string.Close);
+        abdt.setDrawerIndicatorEnabled(true);
+
+        dl.addDrawerListener(abdt);
+        abdt.syncState();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
+        final NavigationView nav_view = (NavigationView)findViewById(R.id.nav_view);
+
+        nav_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener()
+        {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item){
+                int id = item.getItemId();
+
+                if(id == R.id.profile_icon){
+                    Toast.makeText(RestaurantSwipeActivity.this, "MyProfile",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(RestaurantSwipeActivity.this,ProfileActivity.class);
+                    startActivity(intent);
+                }
+                else if(id == R.id.settings){
+                    Toast.makeText(RestaurantSwipeActivity.this, "Settings",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(RestaurantSwipeActivity.this, SettingsActivity.class);
+                    startActivity(intent);
+                }
+
+                return true;
+            }
+        });
+
+
+        //END OF NAVBAR
+
 
 
         restaurantImage.setOnTouchListener(new OnSwipeTouchListener(this) {
@@ -103,7 +153,8 @@ public class RestaurantSwipeActivity extends AppCompatActivity {
         }
 
         mParams = new HashMap<>();
-        mParams.put("term", "pizza");
+        mParams.put("term", "restaurants");
+        mParams.put("term", "vegitarian");
 
         mParams.put("limit", "40");
 
@@ -123,6 +174,11 @@ public class RestaurantSwipeActivity extends AppCompatActivity {
         new FetchPictures().execute("0");
         waitForRestaurant(true);
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        return abdt.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
     public void initLocation() {
