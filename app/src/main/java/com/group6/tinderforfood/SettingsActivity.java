@@ -26,7 +26,7 @@ public class SettingsActivity extends AppCompatActivity {
     private RadioGroup dietgroup; //this represents the entire radiogroup
     private RadioButton dietbutton; //this is going to store the value of the currently checked radiobutton
     public static String MY_PREFS = "MY_PREFS";
-    private SharedPreferences mySharedPreferences;
+    private SharedPreferences preferences;
     int prefMode = Activity.MODE_PRIVATE;
 
     @Override
@@ -37,7 +37,7 @@ public class SettingsActivity extends AppCompatActivity {
         assert getSupportActionBar() != null;   //null check
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);   //show back button
 
-        mySharedPreferences = getSharedPreferences(MY_PREFS, prefMode);
+        preferences = getSharedPreferences(MY_PREFS, prefMode);
 
         ratingbar = (SeekBar) findViewById(R.id.seekBar1);
 
@@ -63,12 +63,11 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
                 rating.setText(String.valueOf(progress+1)); //this changes the value in the textview so that it displays the seekbar value as it updates
-                
 
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(SettingsActivity.this); //this gets the sharedpreferences across the app
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString("Rating",toString().valueOf(progress+1)); //this is what you push to the sharedpreferences
-                editor.apply(); //this completes the action
+                editor.commit(); //this completes the action
             }
         });
 
@@ -94,6 +93,7 @@ public class SettingsActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString("Price",toString().valueOf(progress));
                 editor.apply();
+
             }
         });
 
