@@ -10,19 +10,14 @@ import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.edmodo.rangebar.RangeBar;
-
 import static java.lang.Integer.valueOf;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    private SeekBar ratingbar;
     private SeekBar pricebar;
-    private RangeBar rangebar;
-    private TextView rating;
+    private SeekBar radiusbar;
     private TextView price;
-    private TextView min_distance;
-    private TextView max_distance;
+    private TextView radius;
     private RadioGroup dietgroup; //this represents the entire radiogroup
     private RadioButton dietbutton; //this is going to store the value of the currently checked radiobutton
     public static String MY_PREFS = "MY_PREFS";
@@ -39,37 +34,13 @@ public class SettingsActivity extends AppCompatActivity {
 
         preferences = getSharedPreferences(MY_PREFS, prefMode);
 
-        ratingbar = (SeekBar) findViewById(R.id.seekBar1);
-
         pricebar = (SeekBar) findViewById(R.id.seekBar2);
 
-        rangebar = (RangeBar) findViewById(R.id.rangebar1);
-        rangebar.setTickCount(20);
+        radiusbar = (SeekBar) findViewById(R.id.seekBar3);
 
-        rating = (TextView) findViewById(R.id.textView5);
         price = (TextView) findViewById(R.id.textView7);
-        min_distance = (TextView) findViewById(R.id.editText1);
-        max_distance = (TextView) findViewById(R.id.editText2);
 
-        ratingbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar){ //i'm not sure what these 2 methods are supposed to do, but i didn't have to change them.
-
-            }
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar){
-
-            }
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
-                rating.setText(String.valueOf(progress+1)); //this changes the value in the textview so that it displays the seekbar value as it updates
-
-                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(SettingsActivity.this); //this gets the sharedpreferences across the app
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putString("Rating",toString().valueOf(progress+1)); //this is what you push to the sharedpreferences
-                editor.commit(); //this completes the action
-            }
-        });
+        radius = (TextView) findViewById(R.id.editText2);
 
         pricebar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
             @Override
@@ -88,27 +59,34 @@ public class SettingsActivity extends AppCompatActivity {
                     price.setText("$$");
                 } else if(valueOf(progress)==2){
                     price.setText("$$$");
+                } else if(valueOf(progress)==3){
+                    price.setText("$$$$");
                 }
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(SettingsActivity.this);
                 SharedPreferences.Editor editor = preferences.edit();
-                editor.putString("Price",toString().valueOf(progress));
+                editor.putString("Price",toString().valueOf(progress+1));
                 editor.apply();
 
             }
         });
 
-        rangebar.setOnRangeBarChangeListener(new RangeBar.OnRangeBarChangeListener() {
+        radiusbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
             @Override
-            public void onIndexChangeListener(RangeBar rangeBar, int leftThumbIndex, int rightThumbIndex) {
+            public void onStopTrackingTouch(SeekBar seekBar){ //i'm not sure what these 2 methods are supposed to do, but i didn't have to change them.
 
-                min_distance.setText("" + leftThumbIndex);
-                max_distance.setText("" + rightThumbIndex);
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar){
 
-                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(SettingsActivity.this);
+            }
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
+                radius.setText(String.valueOf(progress+1)); //this changes the value in the textview so that it displays the seekbar value as it updates
+
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(SettingsActivity.this); //this gets the sharedpreferences across the app
                 SharedPreferences.Editor editor = preferences.edit();
-                editor.putString("Min_Distance",min_distance.getText()+"");
-                editor.putString("Max_Distance",max_distance.getText()+"");
-                editor.apply();
+                editor.putString("Radius",toString().valueOf((progress+1)*1609)); //this is what you push to the sharedpreferences
+                editor.commit(); //this completes the action
             }
         });
 

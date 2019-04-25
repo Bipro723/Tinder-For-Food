@@ -1,8 +1,10 @@
 package com.group6.tinderforfood;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
@@ -63,6 +65,10 @@ public class RestaurantSwipeActivity extends AppCompatActivity {
     double mLongitude, mLatitude;
     Coordinates mCoordinate;
 
+    public static String MY_PREFS = "MY_PREFS";
+    private SharedPreferences mySharedPreferences;
+    int prefMode = Activity.MODE_PRIVATE;
+
 
     private DrawerLayout dl;
     private ActionBarDrawerToggle abdt;
@@ -116,7 +122,28 @@ public class RestaurantSwipeActivity extends AppCompatActivity {
         mParams = new HashMap<>();
         mParams.put("term", "pizza");
 
+
         mParams.put("limit", "40");
+
+
+        mySharedPreferences = getSharedPreferences(MY_PREFS, prefMode); //this gets the sharedpreferences values
+        String string1 = mySharedPreferences.getString("Price", null); //this pulls data from each category
+        String string2 = mySharedPreferences.getString("Radius", null);
+        String string3 = mySharedPreferences.getString("Diet",null);
+
+        if(string1 != null){ //if the result isn't null (the default value when we try to pull from sharedpreferences) then it fills the hashmap with the chosen option
+            mParams.put("price",string1);
+        }
+        if(string2 != null){
+            mParams.put("radius",string2);
+        }
+        if(string3 == "Vegan"){
+            mParams.put("attributes","Vegan");
+        } else if(string3 == "Vegetarian"){
+            mParams.put("attributes","Vegetarian");
+        }
+
+
 
         LocationManager lm = (LocationManager) getSystemService((Context.LOCATION_SERVICE));
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -300,6 +327,7 @@ public class RestaurantSwipeActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
             mParams.put("offset", params[0]);
+
             Call<SearchResponse> call = yelpFusionApi.getBusinessSearch(mParams);
             Response<SearchResponse> response = null;
             try {
