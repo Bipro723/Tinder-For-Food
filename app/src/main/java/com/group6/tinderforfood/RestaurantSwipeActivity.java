@@ -4,7 +4,9 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+
 import android.content.SharedPreferences;
+
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
@@ -14,6 +16,9 @@ import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+
+import android.support.constraint.ConstraintLayout;
+
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -65,18 +70,62 @@ public class RestaurantSwipeActivity extends AppCompatActivity {
     double mLongitude, mLatitude;
     Coordinates mCoordinate;
 
+
     public static String MY_PREFS = "MY_PREFS";
     private SharedPreferences mySharedPreferences;
     int prefMode = Activity.MODE_PRIVATE;
 
 
+
+
+    //NAVBAR VARS
     private DrawerLayout dl;
     private ActionBarDrawerToggle abdt;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.restaurant_swipe);
+
+        //NAVBAR CODE
+
+        dl = (DrawerLayout)findViewById(R.id.dl);
+        abdt = new ActionBarDrawerToggle(this,dl,R.string.Open,R.string.Close);
+        abdt.setDrawerIndicatorEnabled(true);
+
+        dl.addDrawerListener(abdt);
+        abdt.syncState();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
+        final NavigationView nav_view = (NavigationView)findViewById(R.id.nav_view);
+
+        nav_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener()
+        {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item){
+                int id = item.getItemId();
+
+                if(id == R.id.profile_icon){
+                    Toast.makeText(RestaurantSwipeActivity.this, "MyProfile",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(RestaurantSwipeActivity.this,ProfileActivity.class);
+                    startActivity(intent);
+                }
+                else if(id == R.id.settings){
+                    Toast.makeText(RestaurantSwipeActivity.this, "Settings",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(RestaurantSwipeActivity.this, SettingsActivity.class);
+                    startActivity(intent);
+                }
+
+                return true;
+            }
+        });
+
+
+        //END OF NAVBAR
+
 
         mClient = new OkHttpClient();
         mRestaurantTitle = (TextView) findViewById(R.id.restaurantTitle);
@@ -120,7 +169,8 @@ public class RestaurantSwipeActivity extends AppCompatActivity {
         }
 
         mParams = new HashMap<>();
-        mParams.put("term", "pizza");
+        mParams.put("term", "restaurants");
+        mParams.put("term", "vegitarian");
 
 
         mParams.put("limit", "40");
@@ -163,6 +213,11 @@ public class RestaurantSwipeActivity extends AppCompatActivity {
 
     }
 
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        return abdt.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
+    }
 
     public void initLocation() {
         LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
