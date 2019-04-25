@@ -7,7 +7,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Rating" />
+        android:text="Rating" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -25,14 +25,14 @@
             android:id="@+id/textView5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/RatingValue" />
+            android:text="3" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Price" />
+        android:text="Price" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -52,14 +52,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/PriceValue" />
+            android:text="$$" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/textView8"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Distance" />
+        android:text="Distance" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -71,7 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/minDistance" />
+            android:text="0" />
 
         <com.edmodo.rangebar.RangeBar xmlns:custom="http://schemas.android.com/apk/res-auto"
             android:id="@+id/rangebar1"
@@ -79,14 +79,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
             android:layout_marginBottom="0dp"
-            custom:tickCount="20" />
+            custom:tickCount="2" />
 
         <EditText
             android:id="@+id/editText2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/maxDistance" />
+            android:text="20" />
 
     </LinearLayout>
 
@@ -99,35 +99,34 @@
             android:id="@+id/textView11"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/Diet" />
+            android:text="Diet" />
 
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:id="@+id/radioGroup1">
+            android:orientation="vertical">
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Meat"
-            android:checked="false"/>
+            android:text="Meat-Eater"
+            android:checked="true"/>
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/Vegetarian"
-                android:checked="false"/>
+                android:text="Vegetarian"
+                android:checked="true"/>
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/Vegan"
-                android:checked="false"/>
+                android:text="Vegan"
+                android:checked="true"/>
         </RadioGroup>
 
         <TextView
             android:id="@+id/textView12"
             android:layout_width="216dp"
             android:layout_height="wrap_content"
-            android:text="@string/Preferences" />
+            android:text="Preferences (for picky eaters!):" />
 
         <CheckBox
             android:id="@+id/chk1"
