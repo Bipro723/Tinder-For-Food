@@ -10,11 +10,21 @@ public class Restaurant {
     private List<String> pictures;
     private String rating;
     private int currPic;
+    private int iLast;
 
     public Restaurant(String name, String mainUrl) {
         this.name = name;
         setMainUrl(mainUrl);
         currPic = 0;
+        iLast = 0;
+    }
+
+    public int getiLast() {
+        return iLast;
+    }
+
+    public void setiLast(int iLast) {
+        this.iLast = iLast;
     }
 
     public int getCurrPic() {
