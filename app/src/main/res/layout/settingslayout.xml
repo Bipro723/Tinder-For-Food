@@ -133,7 +133,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
             android:layout_marginBottom="0dp"
-            android:background="@color/white"
+            android:background="@android:color/transparent"
             custom:tickCount="2" />
         <!--custom:thumbColorNormal="@android:color/holo_blue_light"-->
 
@@ -184,7 +184,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:buttonTint="#FF5864"
-                android:checked="true"
+                android:checked="false"
                 android:text="Meat-Eater"
                 android:textAlignment="center"
                 android:textAllCaps="false" />
@@ -239,7 +239,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:buttonTint="#FF5864"
-                android:checked="true"
                 android:gravity="center"
                 android:text="Genre" />
         </RadioGroup>
