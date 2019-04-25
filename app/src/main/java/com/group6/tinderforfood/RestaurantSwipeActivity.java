@@ -205,9 +205,14 @@ public class RestaurantSwipeActivity extends AppCompatActivity {
         Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
 
-        mParams.put("latitude", location.getLatitude()+"");
-        mParams.put("longitude", location.getLongitude()+ "");
+        mParams.put("latitude", 33.7523+"");
+        mParams.put("longitude", -84.3234+ "");
 
+       // mParams.put("latitude", location.getLatitude()+"");
+       // mParams.put("longitude", location.getLongitude()+ "");
+
+        //33.7523
+        //-84.3234
         new FetchPictures().execute("0");
         waitForRestaurant(true);
 
