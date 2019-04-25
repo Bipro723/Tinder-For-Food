@@ -74,15 +74,6 @@ public class RestaurantSwipeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.restaurant_swipe);
 
-        mClient = new OkHttpClient();
-        mRestaurantTitle = (TextView) findViewById(R.id.restaurantTitle);
-        mRating = (TextView) findViewById(R.id.bottomText);
-        restaurantImage = (ImageView) findViewById(R.id.restaurantImage);
-        mLoading = (ProgressBar) findViewById(R.id.loading);
-        mRestaurants = new ArrayList<>();
-        i = 0;
-        iLast = 0;
-
         //NAVBAR CODE
 
         dl = (DrawerLayout)findViewById(R.id.dl);
@@ -120,6 +111,17 @@ public class RestaurantSwipeActivity extends AppCompatActivity {
 
 
         //END OF NAVBAR
+
+
+        mClient = new OkHttpClient();
+        mRestaurantTitle = (TextView) findViewById(R.id.restaurantTitle);
+        mRating = (TextView) findViewById(R.id.bottomText);
+        restaurantImage = (ImageView) findViewById(R.id.restaurantImage);
+        mLoading = (ProgressBar) findViewById(R.id.loading);
+        mRestaurants = new ArrayList<>();
+        i = 0;
+        iLast = 0;
+
 
 
 
