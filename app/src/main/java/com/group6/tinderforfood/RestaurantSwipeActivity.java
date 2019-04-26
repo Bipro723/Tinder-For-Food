@@ -73,7 +73,7 @@ public class RestaurantSwipeActivity extends AppCompatActivity {
 
     public static String MY_PREFS = "MY_PREFS";
     private SharedPreferences mySharedPreferences;
-    int prefMode = Activity.MODE_PRIVATE;
+    int prefMode = MODE_PRIVATE;
 
 
 
@@ -172,14 +172,14 @@ public class RestaurantSwipeActivity extends AppCompatActivity {
         mParams.put("term", "restaurants");
         mParams.put("term", "vegitarian");
 
-
         mParams.put("limit", "40");
 
-
-        mySharedPreferences = getSharedPreferences(MY_PREFS, prefMode); //this gets the sharedpreferences values
+        mySharedPreferences = getSharedPreferences(MY_PREFS, prefMode); //this gets the sharedpreferences xml
         String string1 = mySharedPreferences.getString("Price", null); //this pulls data from each category
         String string2 = mySharedPreferences.getString("Radius", null);
         String string3 = mySharedPreferences.getString("Diet",null);
+
+        System.out.println(string1);
 
         if(string1 != null){ //if the result isn't null (the default value when we try to pull from sharedpreferences) then it fills the hashmap with the chosen option
             mParams.put("price",string1);
@@ -223,6 +223,7 @@ public class RestaurantSwipeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         return abdt.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
+
 
     public void initLocation() {
         LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);

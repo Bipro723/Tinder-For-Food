@@ -1,6 +1,5 @@
 package com.group6.tinderforfood;
 
-import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -22,7 +21,7 @@ public class SettingsActivity extends AppCompatActivity {
     private RadioButton dietbutton; //this is going to store the value of the currently checked radiobutton
     public static String MY_PREFS = "MY_PREFS";
     private SharedPreferences preferences;
-    int prefMode = Activity.MODE_PRIVATE;
+    int prefMode = MODE_PRIVATE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +64,7 @@ public class SettingsActivity extends AppCompatActivity {
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(SettingsActivity.this);
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString("Price",toString().valueOf(progress+1));
-                editor.apply();
+                editor.commit();
 
             }
         });
@@ -112,7 +111,7 @@ public class SettingsActivity extends AppCompatActivity {
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(SettingsActivity.this);
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString("Diet",(String)dietbutton.getText());
-                editor.apply();
+                editor.commit();
             }
         });
     }
