@@ -4,6 +4,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
@@ -16,6 +18,7 @@ public class SettingsActivity extends AppCompatActivity {
     private SeekBar pricebar;
     private SeekBar radiusbar;
     private TextView price;
+    private Button pricereset;
     private TextView radius;
     private RadioGroup dietgroup; //this represents the entire radiogroup
     private RadioButton dietbutton; //this is going to store the value of the currently checked radiobutton
@@ -67,6 +70,19 @@ public class SettingsActivity extends AppCompatActivity {
                 editor.commit();
 
             }
+        });
+
+        pricereset = (Button) findViewById(R.id.button8);
+
+        pricereset.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                pricebar.setProgress(0);
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(SettingsActivity.this);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("Price","0");
+                editor.commit();
+            }
+
         });
 
         radiusbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){

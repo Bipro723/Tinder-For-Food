@@ -15,6 +15,7 @@ import android.location.LocationManager;
 import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 
 import android.support.constraint.ConstraintLayout;
@@ -75,6 +76,10 @@ public class RestaurantSwipeActivity extends AppCompatActivity {
     private SharedPreferences mySharedPreferences;
     int prefMode = MODE_PRIVATE;
 
+    String string1;
+    String string2;
+    String string3;
+
 
 
 
@@ -117,6 +122,10 @@ public class RestaurantSwipeActivity extends AppCompatActivity {
                     Toast.makeText(RestaurantSwipeActivity.this, "Settings",Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(RestaurantSwipeActivity.this, SettingsActivity.class);
                     startActivity(intent);
+                } else if(id == R.id.refresh){
+                    Toast.makeText(RestaurantSwipeActivity.this, "Refreshing...",Toast.LENGTH_SHORT).show();
+                    finish();
+                    startActivity(getIntent());
                 }
 
                 return true;
@@ -170,19 +179,23 @@ public class RestaurantSwipeActivity extends AppCompatActivity {
 
         mParams = new HashMap<>();
         mParams.put("term", "restaurants");
-        mParams.put("term", "vegitarian");
 
         mParams.put("limit", "40");
 
-        mySharedPreferences = getSharedPreferences(MY_PREFS, prefMode); //this gets the sharedpreferences xml
-        String string1 = mySharedPreferences.getString("Price", null); //this pulls data from each category
-        String string2 = mySharedPreferences.getString("Radius", null);
-        String string3 = mySharedPreferences.getString("Diet",null);
+        mySharedPreferences = PreferenceManager.getDefaultSharedPreferences(this); //this gets the sharedpreferences xml
+        string1 = mySharedPreferences.getString("Price", null); //this pulls data from each category
+        string2 = mySharedPreferences.getString("Radius", null);
+        string3 = mySharedPreferences.getString("Diet", null);
 
         System.out.println(string1);
 
-        if(string1 != null){ //if the result isn't null (the default value when we try to pull from sharedpreferences) then it fills the hashmap with the chosen option
-            mParams.put("price",string1);
+        if(string1 != null){
+            //if the result isn't null (the default value when we try to pull from sharedpreferences) then it fills the hashmap with the chosen option
+            if(string1 == "0"){
+                mParams.put("price","1,2,3,4");
+            } else {
+                mParams.put("price", string1);
+            }
         }
         if(string2 != null){
             mParams.put("radius",string2);
@@ -191,6 +204,8 @@ public class RestaurantSwipeActivity extends AppCompatActivity {
             mParams.put("attributes","Vegan");
         } else if(string3 == "Vegetarian"){
             mParams.put("attributes","Vegetarian");
+        } else{
+            mParams.put("attributes","restaurants");
         }
 
 
