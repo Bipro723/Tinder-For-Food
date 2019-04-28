@@ -23,6 +23,7 @@
             android:id="@+id/restaurantImage"
             android:layout_width="350dp"
             android:layout_height="350dp"
+            android:translationY="-50dp"
             tools:layout_conversion_absoluteHeight="573dp"
             tools:layout_conversion_absoluteWidth="399dp"
             tools:layout_editor_absoluteX="6dp"
@@ -40,6 +41,7 @@
             android:textColor="@android:color/black"
             android:textSize="22sp"
             android:textStyle="bold"
+            android:translationY="-50dp"
             tools:layout_conversion_absoluteHeight="44dp"
             tools:layout_conversion_absoluteWidth="411dp"
             tools:layout_editor_absoluteX="0dp"
@@ -53,7 +55,8 @@
             android:paddingEnd="0dp"
             android:textAlignment="textStart"
             android:textColor="@android:color/black"
-            android:textSize="20sp"
+            android:textSize="18sp"
+            android:translationY="-50dp"
             tools:layout_conversion_absoluteHeight="46dp"
             tools:layout_conversion_absoluteWidth="411dp"
             tools:layout_editor_absoluteX="0dp"
@@ -61,13 +64,42 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/nobutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00FFFFFF"
+            android:scaleX=".6"
+            android:scaleY=".6"
+            android:translationX="40dp"
+            android:translationY="440dp"
+            app:srcCompat="@drawable/xbutton" />
+
+        <ImageButton
+            android:id="@+id/yesbutton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#00FFFFFF"
+            android:scaleX=".6"
+            android:scaleY=".6"
+            android:translationX="-10dp"
+            android:translationY="440dp"
+            app:srcCompat="@drawable/checkbutton" />
+    </LinearLayout>
+
     <ProgressBar
-        android:scaleX=".3"
-        android:scaleY=".3"
         android:id="@+id/loading"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:scaleX=".4"
+        android:scaleY=".4"
+        android:translationY="-130dp" />
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
