@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onClick(View v){
 
                //Intent intent = new Intent(v.getContext(), MainActivity.class);
-               Intent intent = new Intent(v.getContext(), RestaurantSwipeActivity.class);
+               Intent intent = new Intent(v.getContext(), FoodSwipeActivity.class);
                 startActivity(intent);
             }
         });

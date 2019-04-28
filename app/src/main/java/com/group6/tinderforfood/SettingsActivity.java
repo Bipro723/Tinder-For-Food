@@ -126,7 +126,11 @@ public class SettingsActivity extends AppCompatActivity {
 
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(SettingsActivity.this);
                 SharedPreferences.Editor editor = preferences.edit();
-                editor.putString("Diet",(String)dietbutton.getText());
+                if((String)dietbutton.getText()=="Meat-Eater"){
+                    editor.remove("Diet");
+                }else {
+                    editor.putString("Diet", (String) dietbutton.getText());
+                }
                 editor.commit();
             }
         });

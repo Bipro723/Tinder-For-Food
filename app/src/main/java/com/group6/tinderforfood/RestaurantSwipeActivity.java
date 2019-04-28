@@ -76,9 +76,11 @@ public class RestaurantSwipeActivity extends AppCompatActivity {
     private SharedPreferences mySharedPreferences;
     int prefMode = MODE_PRIVATE;
 
-    String string1;
-    String string2;
-    String string3;
+    //These are the shared settings that we gather from SharedPreferences
+    String string1; //price
+    String string2; //radius
+    String string3; //diet
+    String string4; //food category
 
 
 
@@ -182,31 +184,7 @@ public class RestaurantSwipeActivity extends AppCompatActivity {
 
         mParams.put("limit", "40");
 
-        mySharedPreferences = PreferenceManager.getDefaultSharedPreferences(this); //this gets the sharedpreferences xml
-        string1 = mySharedPreferences.getString("Price", null); //this pulls data from each category
-        string2 = mySharedPreferences.getString("Radius", null);
-        string3 = mySharedPreferences.getString("Diet", null);
-
-        System.out.println(string1);
-
-        if(string1 != null){
-            //if the result isn't null (the default value when we try to pull from sharedpreferences) then it fills the hashmap with the chosen option
-            if(string1 == "0"){
-                mParams.put("price","1,2,3,4");
-            } else {
-                mParams.put("price", string1);
-            }
-        }
-        if(string2 != null){
-            mParams.put("radius",string2);
-        }
-        if(string3 == "Vegan"){
-            mParams.put("attributes","Vegan");
-        } else if(string3 == "Vegetarian"){
-            mParams.put("attributes","Vegetarian");
-        } else{
-            mParams.put("attributes","restaurants");
-        }
+        mParams = addPreferences(mParams,mySharedPreferences);
 
 
 
@@ -231,6 +209,62 @@ public class RestaurantSwipeActivity extends AppCompatActivity {
         new FetchPictures().execute("0");
         waitForRestaurant(true);
 
+    }
+
+    public Map addPreferences(Map<String,String> mParams, SharedPreferences mySharedPreferences){
+
+        mySharedPreferences = PreferenceManager.getDefaultSharedPreferences(this); //this gets the sharedpreferences xml
+        string1 = mySharedPreferences.getString("Price", null); //this pulls data from each category
+        string2 = mySharedPreferences.getString("Radius", null);
+        string3 = mySharedPreferences.getString("Diet", null);
+        string4 = mySharedPreferences.getString("Category",null);
+
+        System.out.println(string1);
+
+        if(string1 != null){
+            //if the result isn't null (the default value when we try to pull from sharedpreferences) then it fills the hashmap with the chosen option
+            if(string1 == "0"){
+                mParams.put("price","1,2,3,4");
+            } else {
+                mParams.put("price", string1);
+            }
+        }
+        if(string2 != null){
+            mParams.put("radius",string2);
+        }
+        if(string3.equals("Vegan")){
+            mParams.put("attributes","Vegan");
+        } else if(string3.equals("Vegetarian")){
+            mParams.put("attributes","Vegetarian");
+        } else{
+            mParams.remove("attributes");
+        }
+
+        if(string4 != null){
+            String diet = mParams.get("attributes");
+            if (string3.equals("Meat-Eater")){
+                diet = "";
+            } else{
+                diet = diet + ", ";
+            }
+
+            if (string4.equals("chinese")) {
+                mParams.put("term",diet + "chinese");
+            }
+            else if (string4.equals("pizza")){
+                mParams.put("term",diet + "pizza");
+            }
+            else if (string4.equals("barbeque")){
+                mParams.put("term",diet + "bbq");
+            }else if (string4.equals("sushi")){
+                mParams.put("term",diet + "sushi");
+            }else if (string4.equals("indian")){
+                mParams.put("term",diet + "indpak");
+            }else if (string4.equals("vegetarian specialty")){
+                mParams.put("term",diet + "vegetarian");
+            }
+        }
+        return mParams;
     }
 
 
