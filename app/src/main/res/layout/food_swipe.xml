@@ -17,15 +17,23 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <ImageView
+        <TextView
+            android:id="@+id/swipenote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Swipe Left to Begin"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="50sp"
+            android:textStyle="bold"
+            android:translationY="60dp"
+            android:typeface="sans" />
+
+        <pl.droidsonroids.gif.GifImageView
             android:id="@+id/foodImage"
-            android:layout_width="350dp"
-            android:layout_height="350dp"
-            tools:layout_conversion_absoluteHeight="573dp"
-            tools:layout_conversion_absoluteWidth="399dp"
-            tools:layout_editor_absoluteX="6dp"
-            tools:layout_editor_absoluteY="34dp"
-            tools:srcCompat="@tools:sample/avatars[12]" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/swipe_left" />
 
         <TextView
             android:id="@+id/foodTitle"

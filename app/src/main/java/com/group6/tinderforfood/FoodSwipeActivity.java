@@ -95,6 +95,7 @@ public class FoodSwipeActivity extends AppCompatActivity {
         //mRating = (TextView) findViewById(R.id.bottomText); //not using bottomText for now
         foodImage = (ImageView) findViewById(R.id.foodImage);
         mLoading = (ProgressBar) findViewById(R.id.loading);
+        TextView swipenote = findViewById(R.id.swipenote);
         categories = new ArrayList<>();
         i=0;
         iLast = 0;
@@ -120,6 +121,8 @@ public class FoodSwipeActivity extends AppCompatActivity {
             }
             public void onSwipeLeft() {
                 nextCategory();
+                swipenote.setVisibility(View.INVISIBLE);
+
             }
 
             public void onSwipeBottom() {
