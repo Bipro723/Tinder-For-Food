@@ -6,7 +6,7 @@
         <item name="colorPrimary">#ff5864</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:navigationBarColor">#ff5864</item>
+        <item name="android:navigationBarColor">#FD414C</item>
         <item name="android:windowLightNavigationBar">true</item>
     </style>
 
@@ -31,7 +31,7 @@
         <item name="android:colorControlActivated">#1a237e</item>
         <item name="android:colorControlNormal">#ff5864</item>
         <item name="colorPrimary">#ff5864</item>
-        <item name="android:navigationBarColor">#ff5864</item>
+        <item name="android:navigationBarColor">#FD414C</item>
         <item name="android:windowLightNavigationBar">true</item>
     </style>
 </resources>

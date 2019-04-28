@@ -28,6 +28,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -92,6 +93,8 @@ public class RestaurantSwipeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.restaurant_swipe);
+        ImageButton nobutton = findViewById(R.id.nobutton);
+        ImageButton yesbutton = findViewById(R.id.yesbutton);
 
         //NAVBAR CODE
 
@@ -145,8 +148,18 @@ public class RestaurantSwipeActivity extends AppCompatActivity {
         i = 0;
         iLast = 0;
 
-
-
+        nobutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                newRestaurant();
+            }
+        });
+        yesbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lastRestaurant();
+            }
+        });
 
         restaurantImage.setOnTouchListener(new OnSwipeTouchListener(this) {
             public void onSwipeTop() {
