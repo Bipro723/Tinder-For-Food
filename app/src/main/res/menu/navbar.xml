@@ -6,11 +6,6 @@
         android:icon="@drawable/refresh512"
         android:title="Refresh">
     </item>
-    <item
-        android:id="@+id/profile_icon"
-        android:icon="@drawable/user512"
-        android:title="My Profile">
-    </item>
 
     <item
         android:id="@+id/settings"

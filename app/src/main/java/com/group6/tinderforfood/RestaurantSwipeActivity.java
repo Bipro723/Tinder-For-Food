@@ -13,6 +13,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.Image;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -118,12 +119,7 @@ public class RestaurantSwipeActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item){
                 int id = item.getItemId();
 
-                if(id == R.id.profile_icon){
-                    Toast.makeText(RestaurantSwipeActivity.this, "MyProfile",Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(RestaurantSwipeActivity.this,ProfileActivity.class);
-                    startActivity(intent);
-                }
-                else if(id == R.id.settings){
+                if(id == R.id.settings){
                     Toast.makeText(RestaurantSwipeActivity.this, "Settings",Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(RestaurantSwipeActivity.this, SettingsActivity.class);
                     startActivity(intent);
@@ -227,22 +223,22 @@ public class RestaurantSwipeActivity extends AppCompatActivity {
     public Map addPreferences(Map<String,String> mParams, SharedPreferences mySharedPreferences){
 
         mySharedPreferences = PreferenceManager.getDefaultSharedPreferences(this); //this gets the sharedpreferences xml
-        string1 = mySharedPreferences.getString("Price", null); //this pulls data from each category
-        string2 = mySharedPreferences.getString("Radius", null);
-        string3 = mySharedPreferences.getString("Diet", null);
-        string4 = mySharedPreferences.getString("Category",null);
+        string1 = mySharedPreferences.getString("Price", ""); //this pulls data from each category
+        string2 = mySharedPreferences.getString("Radius", "");
+        string3 = mySharedPreferences.getString("Diet", "");
+        string4 = mySharedPreferences.getString("Category","");
 
         System.out.println(string1);
 
-        if(string1 != null){
-            //if the result isn't null (the default value when we try to pull from sharedpreferences) then it fills the hashmap with the chosen option
+        if(string1 != ""){
+            //if the result isn't empty (the default value when we try to pull from sharedpreferences) then it fills the hashmap with the chosen option
             if(string1 == "0"){
                 mParams.put("price","1,2,3,4");
             } else {
                 mParams.put("price", string1);
             }
         }
-        if(string2 != null){
+        if(string2 != ""){
             mParams.put("radius",string2);
         }
         if(string3.equals("Vegan")){
@@ -253,7 +249,7 @@ public class RestaurantSwipeActivity extends AppCompatActivity {
             mParams.remove("attributes");
         }
 
-        if(string4 != null){
+        if(string4 != ""){
             String diet = mParams.get("attributes");
             if (string3.equals("Meat-Eater")){
                 diet = "";
@@ -386,11 +382,17 @@ public class RestaurantSwipeActivity extends AppCompatActivity {
     }
 
     private void lastRestaurant() {
-        if(i >= 0 ) {
+        /*if(i >= 0 ) {
             i--;
             waitForRestaurant(true);
 
         }
+        */
+        Restaurant r = mRestaurants.get(i);
+        String url = r.getMainUrl();
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
     }
     private void newRestaurant() {
         if(mRestaurants.size()-1 > i) {

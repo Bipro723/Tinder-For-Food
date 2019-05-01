@@ -67,11 +67,7 @@ public class FoodSwipeActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
 
-                if (id == R.id.profile_icon) {
-                    Toast.makeText(FoodSwipeActivity.this, "MyProfile", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(FoodSwipeActivity.this, ProfileActivity.class);
-                    startActivity(intent);
-                } else if (id == R.id.settings) {
+                if (id == R.id.settings) {
                     Toast.makeText(FoodSwipeActivity.this, "Settings", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(FoodSwipeActivity.this, SettingsActivity.class);
                     startActivity(intent);
@@ -146,7 +142,7 @@ public class FoodSwipeActivity extends AppCompatActivity {
         };
 
         SharedPreferences mySharedPreferences = PreferenceManager.getDefaultSharedPreferences(FoodSwipeActivity.this); //this gets the sharedpreferences xml
-        String string1 = mySharedPreferences.getString("Diet", null); //this pulls data from each category
+        String string1 = mySharedPreferences.getString("Diet", ""); //this pulls data from each category
 
         if(string1.equals("Meat-Eater")) {
             return meatcategories;

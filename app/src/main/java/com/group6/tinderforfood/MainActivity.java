@@ -39,12 +39,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item){
                 int id = item.getItemId();
 
-                if(id == R.id.profile_icon){
-                    Toast.makeText(MainActivity.this, "MyProfile",Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(MainActivity.this,ProfileActivity.class);
-                    startActivity(intent);
-                }
-                else if(id == R.id.settings){
+                if(id == R.id.settings){
                     Toast.makeText(MainActivity.this, "Settings",Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                     startActivity(intent);

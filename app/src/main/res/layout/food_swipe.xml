@@ -38,7 +38,7 @@
         <TextView
             android:id="@+id/foodTitle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="78dp"
             android:gravity="start|left"
             android:paddingStart="40dp"
             android:paddingEnd="0dp"
