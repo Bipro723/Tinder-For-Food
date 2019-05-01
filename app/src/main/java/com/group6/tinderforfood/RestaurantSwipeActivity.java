@@ -268,7 +268,7 @@ public class RestaurantSwipeActivity extends AppCompatActivity {
             }else if (string4.equals("sushi")){
                 mParams.put("term",diet + "sushi");
             }else if (string4.equals("indian")){
-                mParams.put("term",diet + "indpak");
+                mParams.put("term",diet + "indian");
             }else if (string4.equals("vegetarian specialty")){
                 mParams.put("term",diet + "vegetarian");
             }
